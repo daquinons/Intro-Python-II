@@ -52,3 +52,24 @@ player = Player("David", room["outside"])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+user_input = None
+
+available_commands = ["q", "n", "s", "e", "w"]
+
+input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to move to the South,
+ 'e' to move to the East and 'w' to move to the West.\n
+- Enter 'q' to quit the game.\n\nAction: """
+
+while user_input is not "q":
+    print("Current Room:", player.current_room.name)
+    print("Description:", player.current_room.description)
+    print("\n")
+    user_input = input(input_instructions)
+    print("\n")
+
+    if user_input not in available_commands:
+        print("\nInvalid command, try again! \n")
+
+    elif user_input is not 'q':
+        player.move_to(user_input)
