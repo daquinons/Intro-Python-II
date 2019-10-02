@@ -20,6 +20,10 @@ to north. The smell of gold permeates the air."""),
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
+
+    'weapons': Room("Room Full of Weapons", """It's your lucky day! You found different
+weapons that are going to help you in your adventure! It was well hidden in
+the Treasure Room.""")
 }
 
 
@@ -33,6 +37,8 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+room['treasure'].e_to = room['weapons']
+room['weapons'].w_to = room['treasure']
 
 #
 # Main
