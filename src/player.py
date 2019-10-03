@@ -6,6 +6,7 @@ class Player():
     def __init__(self, name, current_room):
         self.__name = name
         self.__current_room = current_room
+        self.__bag = []
 
     @property
     def current_room(self):
@@ -14,6 +15,13 @@ class Player():
     @property
     def name(self):
         return self.__name
+
+    @property
+    def bag(self):
+        for item in self.__bag:
+            print("-", item)
+
+        return ""
 
     def move_to(self, direction):
         selected_room = None
@@ -30,3 +38,14 @@ class Player():
             print("\n\nNothing on that direction! Try with another one\n")
         else:
             self.__current_room = selected_room
+
+    def get_item(self, item_name):
+        for item in self.__current_room.items:
+            if item.name == item_name:
+                self.__bag.append(item)
+                self.current_room.take_item(item)
+
+    def drop_item(self, item_name):
+        for item in self.__current_room.items:
+            if item.name is item_name:
+                self.__bag.remove(item)

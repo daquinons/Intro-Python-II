@@ -55,3 +55,6 @@ class Room():
     @property
     def items(self):
         return self.__items
+
+    def take_item(self, item):
+        self.__items.remove(item)

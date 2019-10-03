@@ -63,6 +63,7 @@ player = Player("David", room["outside"])
 user_input = None
 
 available_commands = ["q", "n", "s", "e", "w"]
+available_actions = ["get"]
 
 input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to move to the South,
  'e' to move to the East and 'w' to move to the West.\n
@@ -71,15 +72,27 @@ input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to 
 while user_input is not "q":
     print("Current Room:", player.current_room.name)
     print("Description:", player.current_room.description)
-    print("Items:")
-    for item in player.current_room.items:
-        print("-", item)
+    print("Items in the room:")
+    if len(player.current_room.items) > 0:
+        for item in player.current_room.items:
+            print("-", item)
+    else:
+        print("No items in this room")
     print("\n")
     user_input = input(input_instructions)
     print("\n")
 
     if user_input not in available_commands:
-        print("\nInvalid command, try again! \n")
+        splitted_commands = user_input.split(" ")
+        if len(splitted_commands) is 2:
+            if splitted_commands[0] in available_actions:
+                print("ACTION!!!!", splitted_commands)
+                if splitted_commands[0] == "get":
+                    player.get_item(splitted_commands[1])
+                    print("Player has now:")
+                    print(player.bag)
+        else:
+            print("\nInvalid command, try again! \n")
 
     elif user_input is not 'q':
         player.move_to(user_input)
