@@ -63,7 +63,7 @@ player = Player("David", room["outside"])
 user_input = None
 
 available_commands = ["q", "n", "s", "e", "w"]
-available_actions = ["get"]
+available_actions = ["get", "drop"]
 
 input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to move to the South,
  'e' to move to the East and 'w' to move to the West.\n
@@ -91,6 +91,9 @@ while user_input is not "q":
                     player.get_item(splitted_commands[1])
                     print("Player has now:")
                     print(player.bag)
+                elif splitted_commands[0] == "drop":
+                    player.drop_item(splitted_commands[1])
+                    print(f"Player has now:\nNo Items")
         else:
             print("\nInvalid command, try again! \n")
 

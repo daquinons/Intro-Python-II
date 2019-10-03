@@ -58,3 +58,6 @@ class Room():
 
     def take_item(self, item):
         self.__items.remove(item)
+
+    def drop_item(self, item):
+        self.__items.append(item)

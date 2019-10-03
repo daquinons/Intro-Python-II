@@ -46,6 +46,7 @@ class Player():
                 self.current_room.take_item(item)
 
     def drop_item(self, item_name):
-        for item in self.__current_room.items:
-            if item.name is item_name:
+        for item in self.__bag:
+            if item.name == item_name:
                 self.__bag.remove(item)
+                self.current_room.drop_item(item)
