@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -19,6 +20,10 @@ to north. The smell of gold permeates the air."""),
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
+
+    'weapons': Room("Room Full of Weapons", """It's your lucky day! You found different
+weapons that are going to help you in your adventure! It was well hidden in
+the Treasure Room.""")
 }
 
 
@@ -32,12 +37,16 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+room['treasure'].e_to = room['weapons']
+room['weapons'].w_to = room['treasure']
 
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+
+player = Player("David", room["outside"])
 
 # Write a loop that:
 #
@@ -49,3 +58,24 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+user_input = None
+
+available_commands = ["q", "n", "s", "e", "w"]
+
+input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to move to the South,
+ 'e' to move to the East and 'w' to move to the West.\n
+- Enter 'q' to quit the game.\n\nAction: """
+
+while user_input is not "q":
+    print("Current Room:", player.current_room.name)
+    print("Description:", player.current_room.description)
+    print("\n")
+    user_input = input(input_instructions)
+    print("\n")
+
+    if user_input not in available_commands:
+        print("\nInvalid command, try again! \n")
+
+    elif user_input is not 'q':
+        player.move_to(user_input)
