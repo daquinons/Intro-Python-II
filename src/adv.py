@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -23,7 +24,7 @@ earlier adventurers. The only exit is to the south."""),
 
     'weapons': Room("Room Full of Weapons", """It's your lucky day! You found different
 weapons that are going to help you in your adventure! It was well hidden in
-the Treasure Room.""")
+the Treasure Room.""", [Item("Rifle", "A big rifle that can kill. A lot.")])
 }
 
 
@@ -70,6 +71,9 @@ input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to 
 while user_input is not "q":
     print("Current Room:", player.current_room.name)
     print("Description:", player.current_room.description)
+    print("Items:")
+    for item in player.current_room.items:
+        print("-", item)
     print("\n")
     user_input = input(input_instructions)
     print("\n")

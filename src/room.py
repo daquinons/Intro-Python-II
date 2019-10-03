@@ -3,13 +3,14 @@
 
 
 class Room():
-    def __init__(self, name, description):
+    def __init__(self, name, description, items=[]):
         self.__name = name
         self.__description = description
         self.__n_to = None
         self.__s_to = None
         self.__e_to = None
         self.__w_to = None
+        self.__items = items
 
     @property
     def name(self):
@@ -50,3 +51,7 @@ class Room():
     @w_to.setter
     def w_to(self, room):
         self.__w_to = room
+
+    @property
+    def items(self):
+        return self.__items
