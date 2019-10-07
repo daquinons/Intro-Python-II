@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -8,7 +9,7 @@ room = {
                      "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", [Item("Antorch", "You'll be able to see when it's dark")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -23,7 +24,7 @@ earlier adventurers. The only exit is to the south."""),
 
     'weapons': Room("Room Full of Weapons", """It's your lucky day! You found different
 weapons that are going to help you in your adventure! It was well hidden in
-the Treasure Room.""")
+the Treasure Room.""", [Item("Rifle", "A big rifle that can kill. A lot.")])
 }
 
 
@@ -62,6 +63,7 @@ player = Player("David", room["outside"])
 user_input = None
 
 available_commands = ["q", "n", "s", "e", "w"]
+available_actions = ["get", "drop"]
 
 input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to move to the South,
  'e' to move to the East and 'w' to move to the West.\n
@@ -70,12 +72,30 @@ input_instructions = """Instructions:\n- Enter 'n' to move to the North, 's' to 
 while user_input is not "q":
     print("Current Room:", player.current_room.name)
     print("Description:", player.current_room.description)
+    print("Items in the room:")
+    if len(player.current_room.items) > 0:
+        for item in player.current_room.items:
+            print("-", item)
+    else:
+        print("No items in this room")
     print("\n")
     user_input = input(input_instructions)
     print("\n")
 
     if user_input not in available_commands:
-        print("\nInvalid command, try again! \n")
+        splitted_commands = user_input.split(" ")
+        if len(splitted_commands) is 2:
+            if splitted_commands[0] in available_actions:
+                print("ACTION!!!!", splitted_commands)
+                if splitted_commands[0] == "get":
+                    player.get_item(splitted_commands[1])
+                    print("Player has now:")
+                    print(player.bag)
+                elif splitted_commands[0] == "drop":
+                    player.drop_item(splitted_commands[1])
+                    print(f"Player has now:\nNo Items")
+        else:
+            print("\nInvalid command, try again! \n")
 
     elif user_input is not 'q':
         player.move_to(user_input)
